@@ -24,11 +24,37 @@ namespace Quiz
             QuizVragen.Add(vraag5);
             QuizVragen.Add(vraag6);
 
-            var SortedQuestions = QuizVragen.OrderBy(o => o.graad);
+            Console.WriteLine("Wil je een categorie kiezen?");
+            string keuze = Console.ReadLine();
 
-            foreach(Vraag v in SortedQuestions)
+            if(keuze == "ja")
             {
-                VraagWeergeven(v.vraag, v.ant);
+                Console.WriteLine("Kies uit Wiskunde, Biologie of Topografie");
+                string catKeuze = Console.ReadLine();
+
+                List<Vraag> SorteerdeVragen = new List<Vraag>();
+
+                foreach(Vraag v in QuizVragen)
+                {
+                    if(v.cat == catKeuze)
+                    {
+                        SorteerdeVragen.Add(v);
+                    }
+                }
+
+                foreach(Vraag v in SorteerdeVragen)
+                {
+                    VraagWeergeven(v.vraag, v.ant);
+                }
+            }
+            else
+            {
+                var SorteerdeVragen = QuizVragen.OrderBy(o => o.graad);
+
+                foreach (Vraag v in SorteerdeVragen)
+                {
+                    VraagWeergeven(v.vraag, v.ant);
+                }
             }
         }
 
